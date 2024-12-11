@@ -17,7 +17,6 @@ app.use("/api/v1/courses", courseRouter);
 
 userRouter.get("/create_user", (req, res) => {
   const user = req.body;
-  console.log(user);
   res.json({
     success: true,
     data: user,
@@ -26,7 +25,6 @@ userRouter.get("/create_user", (req, res) => {
 
 courseRouter.post("/create_course", (req, res) => {
   const course = req.body;
-  console.log(course);
   res.json({
     success: true,
     data: course
@@ -36,19 +34,32 @@ courseRouter.post("/create_course", (req, res) => {
 //middleware
 
 const logger = (req, res, next) => {
-  console.log(req.url, req.method, req.hostname)
+  // console.log(req.url, req.method, req.hostname)
   next()
 }
 
 
-app.get("/",logger, (req, res) => {
-  console.log(req.query)
-  res.send("Hello World!");
+app.get("/", logger, (req, res, nextFunction) => {
+  try {
+    res.send(HelloWorld);
+  } catch (error) {
+    nextFunction(error)
+  }
+  
 });
 
 app.post("/", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.send("data got")
+})
+
+// global error handling
+app.use((error, req, res, nextFunction) => {
+  res.send({
+    success: false,
+    message: "something went wrong",
+    data: error
+  })
 })
 
 export default app;
