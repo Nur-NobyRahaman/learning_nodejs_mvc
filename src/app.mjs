@@ -53,13 +53,25 @@ app.post("/", (req, res) => {
   res.send("data got")
 })
 
+// error router handling
+app.all("*", (req, res) => {
+  res.status(400).json({
+    success: false,
+    message: "route not define",
+   
+  }) 
+})
+
 // global error handling
 app.use((error, req, res, nextFunction) => {
-  res.send({
-    success: false,
-    message: "something went wrong",
-    data: error
-  })
+  if (error) {
+    res.status(400).json({
+      success: false,
+      message: "something went wrong",
+      data: error
+    }) 
+  }
+  
 })
 
 export default app;
