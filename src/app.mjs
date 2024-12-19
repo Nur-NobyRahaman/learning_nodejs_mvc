@@ -2,11 +2,13 @@ import cors from "cors";
 import express from "express";
 const app = express();
 import config from "./app/config/index.mjs";
+import { studentRoute } from "./app/modules/student/student.route.mjs";
 
 //parser
 app.use(express.json());
-
 app.use(cors());
+//application routes
+app.use("/api/v1/student",studentRoute)
 
 // router
 const userRouter = express.Router();
@@ -54,13 +56,13 @@ app.post("/", (req, res) => {
 })
 
 // error router handling
-app.all("*", (req, res) => {
-  res.status(400).json({
-    success: false,
-    message: "route not define",
+// app.all("*", (req, res) => {
+//   res.status(400).json({
+//     success: false,
+//     message: "route not define",
    
-  }) 
-})
+//   }) 
+// })
 
 // global error handling
 app.use((error, req, res, next) => {

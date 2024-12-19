@@ -6,7 +6,7 @@ main().catch((err) => console.log(err));
 async function main() {
   try {
     await mongoose
-      .connect(config.database_url, { dbName: "Dream_Catcher" })
+      .connect(config.database_url, { dbName: "Learning_MVC_Nodejs" })
       .then(() => console.log("mongodb connect"));
 
     app.listen(config.port, () => {

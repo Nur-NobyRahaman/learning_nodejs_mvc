@@ -37,7 +37,7 @@ const localGuardianSchema = new Schema(
     }
 )
 
-const studentSchema = new Schema({
+ const studentSchema = new Schema({
     id: { type: String },
     name: userName,
     gender: ["male", "female"],
@@ -76,4 +76,4 @@ const studentSchema = new Schema({
 
 });
 
-const Student = model('Student', studentSchema);
+export const StudentModel = model('Student', studentSchema);
