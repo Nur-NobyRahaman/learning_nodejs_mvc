@@ -5,90 +5,161 @@ const userName = new Schema(
     {
         firstName: {
             type: String,
-            required: true,
+            required: [true, "First name is required"],  // Custom error message
+            trim: true,  // Trim whitespace
         },
         middleName: {
             type: String,
-           
+            trim: true,  // Trim whitespace
         },
         lastName: {
             type: String,
-            required: true,
+            required: [true, "Last name is required"],  // Custom error message
+            trim: true,  // Trim whitespace
         }
     }
 );
+
 const guardianSchema = new Schema(
     {
-        fatherName: {type: String, required: true,},
-        fatherOccupation: {type: String, required: true,},
-        fatherContactNO: {type: String, required: true,},
-        motherName: {type: String, required: true,},
-        motherOccupation: {type: String, required: true,},
-        motherContactNO: {type: String, required: true,},
+        fatherName: {
+            type: String,
+            required: [true, "Father's name is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        fatherOccupation: {
+            type: String,
+            required: [true, "Father's occupation is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        fatherContactNO: {
+            type: String,
+            required: [true, "Father's contact number is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        motherName: {
+            type: String,
+            required: [true, "Mother's name is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        motherOccupation: {
+            type: String,
+            required: [true, "Mother's occupation is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        motherContactNO: {
+            type: String,
+            required: [true, "Mother's contact number is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
     }
-)
+);
 
 const localGuardianSchema = new Schema(
     {
-        Name: {type: String, required: true,},
-        Occupation: {type: String, required: true,},
-        ContactNO: {type: String, required: true,},
-        address: {type: String, required: true,},
+        Name: {
+            type: String,
+            required: [true, "Local guardian's name is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        Occupation: {
+            type: String,
+            required: [true, "Local guardian's occupation is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        ContactNO: {
+            type: String,
+            required: [true, "Local guardian's contact number is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
+        address: {
+            type: String,
+            required: [true, "Local guardian's address is required"],  // Custom error message
+            trim: true,  // Trim whitespace
+        },
     }
-)
+);
 
- const studentSchema = new Schema({
-    id: { type: String },
-     name: {
-         type: userName,
-         required: true,
+const studentSchema = new Schema({
+    id: { 
+        type: String,
+        required: [true, "Student ID is required"],  // Custom error message for ID
+        trim: true,  // Trim whitespace
     },
-     gender: {
-         type: String,
-         enum: ["male", "female"],
+    name: {
+        type: userName,
+        required: [true, "Student name is required"],  // Custom error message for name
     },
-    dateOfBirth: { type: String },
+    gender: {
+        type: String,
+        enum: {
+            values: ["male", "female"],
+            message: "{VALUE} is not a valid gender. Please select either male or female",  // Custom error message for gender
+        },
+        trim: true,  // Trim whitespace
+    },
+    dateOfBirth: {
+        type: String,
+        required: [true, "Date of birth is required"],  // Custom error message for date of birth
+        trim: true,  // Trim whitespace
+    },
     email: {
         type: String,
-        required: true,
-        unique:true,
+        required: [true, "Email is required"],  // Custom error message for email
+        unique: [true, "The email {VALUE} already exists"],  // Custom error message for duplicate email
+        trim: true,  // Trim whitespace
     },
     contactNo: {
-        type: String, required: true,
+        type: String,
+        required: [true, "Contact number is required"],  // Custom error message for contact number
+        trim: true,  // Trim whitespace
     },
     emergencyContactNo: {
-        type: String, required: true,
+        type: String,
+        required: [true, "Emergency contact number is required"],  // Custom error message for emergency contact number
+        trim: true,  // Trim whitespace
     },
-     bloodGroup: {
-         type: String,
-         enum: [
-            "O+",  // O positive
-            "O-",  // O negative
-            "A+",  // A positive
-            "A-",  // A negative
-            "B+",  // B positive
-            "B-",  // B negative
-            "AB+", // AB positive
-            "AB-"  // AB negative
-        ]
-     },
+    bloodGroup: {
+        type: String,
+        enum: {
+            values: [
+                "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"
+            ],
+            message: "{VALUE} is not a valid blood group",  // Custom error message for blood group
+        },
+        trim: true,  // Trim whitespace
+    },
     presentAddress: {
-        type: String, required: true,
-    }, 
+        type: String,
+        required: [true, "Present address is required"],  // Custom error message for present address
+        trim: true,  // Trim whitespace
+    },
     permanentAddress: {
-        type: String, required: true,
+        type: String,
+        required: [true, "Permanent address is required"],  // Custom error message for permanent address
+        trim: true,  // Trim whitespace
     },
-     guardian: {
-         type: guardianSchema,
-         required: true,
+    guardian: {
+        type: guardianSchema,
+        required: [true, "Guardian information is required"],  // Custom error message for guardian information
     },
-     localGuardian: {
-         type: localGuardianSchema,
-         required: true
+    localGuardian: {
+        type: localGuardianSchema,
+        required: [true, "Local guardian information is required"],  // Custom error message for local guardian information
     },
-    profileImg:{type: String,},
-    isActive: ["active", "blocked"],
-
+    profileImg: {
+        type: String,
+        trim: true,  // Trim whitespace
+    },
+    isActive: {
+        type: String,
+        enum: {
+            values: ["active", "blocked"],
+            message: "{VALUE} is not a valid status",  // Custom error message for isActive status
+        },
+        required: [true, "Account status is required"],  // Custom error message for isActive field
+        trim: true,  // Trim whitespace
+    },
 });
 
 export const StudentModel = model('Student', studentSchema);

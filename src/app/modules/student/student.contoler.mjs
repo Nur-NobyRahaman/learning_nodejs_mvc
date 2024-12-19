@@ -14,10 +14,11 @@ const createStudent = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             success: false,
-            message: "Student is created failed;",
+            // message: "Student is created failed;",
+            message:error.message,
             data: error.errorResponse,
         })
-        console.log(error.errorResponse)
+        console.log(error)
     }
     
 }
@@ -38,7 +39,7 @@ const getStudent = async (req, res) => {
             message: "Student data fetch failed;",
             data: error.errorResponse,
         })
-        console.log(error.errorResponse)
+        console.log(error)
     }
     
 }
