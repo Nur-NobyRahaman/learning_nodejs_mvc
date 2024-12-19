@@ -63,7 +63,7 @@ app.all("*", (req, res) => {
 })
 
 // global error handling
-app.use((error, req, res, nextFunction) => {
+app.use((error, req, res, next) => {
   if (error) {
     res.status(400).json({
       success: false,
@@ -71,6 +71,7 @@ app.use((error, req, res, nextFunction) => {
       data: error
     }) 
   }
+ 
   
 })
 
