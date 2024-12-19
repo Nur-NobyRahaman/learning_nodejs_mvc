@@ -39,8 +39,14 @@ const localGuardianSchema = new Schema(
 
  const studentSchema = new Schema({
     id: { type: String },
-    name: userName,
-    gender: ["male", "female"],
+     name: {
+         type: userName,
+         required: true,
+    },
+     gender: {
+         type: String,
+         enum: ["male", "female"],
+    },
     dateOfBirth: { type: String },
     email: {
         type: String,
@@ -53,24 +59,33 @@ const localGuardianSchema = new Schema(
     emergencyContactNo: {
         type: String, required: true,
     },
-     bloodGroup: [
-        "O+",  // O positive
-        "O-",  // O negative
-        "A+",  // A positive
-        "A-",  // A negative
-        "B+",  // B positive
-        "B-",  // B negative
-        "AB+", // AB positive
-        "AB-"  // AB negative
-    ],
+     bloodGroup: {
+         type: String,
+         enum: [
+            "O+",  // O positive
+            "O-",  // O negative
+            "A+",  // A positive
+            "A-",  // A negative
+            "B+",  // B positive
+            "B-",  // B negative
+            "AB+", // AB positive
+            "AB-"  // AB negative
+        ]
+     },
     presentAddress: {
         type: String, required: true,
     }, 
     permanentAddress: {
         type: String, required: true,
     },
-    guardian: guardianSchema,
-    localGuardian: localGuardianSchema,
+     guardian: {
+         type: guardianSchema,
+         required: true,
+    },
+     localGuardian: {
+         type: localGuardianSchema,
+         required: true
+    },
     profileImg:{type: String,},
     isActive: ["active", "blocked"],
 

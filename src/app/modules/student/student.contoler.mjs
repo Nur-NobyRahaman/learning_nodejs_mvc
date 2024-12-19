@@ -48,16 +48,17 @@ const getSingleStudent = async(req,res) => {
         const { studentId } = req.params;
       
         const result = await studentServices.getSingleStudentIntoDB(studentId)
+        console.log(result)
 
         res.status(200).json({
             success: true,
-            message: "Student data fetch successfully",
+            message: "Single Student data fetch successfully",
             data: result,
         })
     } catch (error) {
         res.status(400).json({
             success: false,
-            message: "Student data fetch failed;",
+            message: "Single Student data fetch successfully failed;",
             data: error.errorResponse,
         })
         console.log(error.errorResponse)
