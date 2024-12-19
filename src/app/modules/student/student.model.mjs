@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { model } from 'mongoose';
 const { Schema } = mongoose;
 
-const studentSchema = new Schema({
-    id: { type: String },
-    name: {
+const userName = new Schema(
+    {
         firstName: {
             type: String,
             required: true,
@@ -16,7 +15,31 @@ const studentSchema = new Schema({
             type: String,
             required: true,
         }
-    },
+    }
+);
+const guardianSchema = new Schema(
+    {
+        fatherName: {type: String, required: true,},
+        fatherOccupation: {type: String, required: true,},
+        fatherContactNO: {type: String, required: true,},
+        motherName: {type: String, required: true,},
+        motherOccupation: {type: String, required: true,},
+        motherContactNO: {type: String, required: true,},
+    }
+)
+
+const localGuardianSchema = new Schema(
+    {
+        Name: {type: String, required: true,},
+        Occupation: {type: String, required: true,},
+        ContactNO: {type: String, required: true,},
+        address: {type: String, required: true,},
+    }
+)
+
+const studentSchema = new Schema({
+    id: { type: String },
+    name: userName,
     gender: ["male", "female"],
     dateOfBirth: { type: String },
     email: {
@@ -46,21 +69,11 @@ const studentSchema = new Schema({
     permanentAddress: {
         type: String, required: true,
     },
-    guardian: {
-        fatherName: {type: String, required: true,},
-        fatherOccupation: {type: String, required: true,},
-        fatherContactNO: {type: String, required: true,},
-        motherName: {type: String, required: true,},
-        motherOccupation: {type: String, required: true,},
-        motherContactNO: {type: String, required: true,},
-    },
-    localGuardian: {
-        Name: {type: String, required: true,},
-        Occupation: {type: String, required: true,},
-        ContactNO: {type: String, required: true,},
-        address: {type: String, required: true,},
-    },
+    guardian: guardianSchema,
+    localGuardian: localGuardianSchema,
     profileImg:{type: String,},
     isActive: ["active", "blocked"],
 
 });
+
+const Student = model('Student', studentSchema);
