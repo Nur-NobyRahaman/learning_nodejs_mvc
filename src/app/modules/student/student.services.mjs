@@ -14,7 +14,10 @@ const getAllStudentIntoDB = async () => {
 
 const getSingleStudentIntoDB = async (studentId) => {
       console.log(studentId)
-    const result = await StudentModel.findOne({ id:studentId})
+    // const result = await StudentModel.findOne({ id:studentId})
+    const result = await StudentModel.aggregate([
+        {$match:{id:studentId}}
+    ])
     return result;
 }
 

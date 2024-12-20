@@ -201,4 +201,10 @@ studentSchema.pre("findOne", function (next) {
     this.find({isDeleted : {$ne: true}})
     next()
 })
+
+// aggregate
+studentSchema.pre("aggregate", function (next) {
+    this.pipeline().unshift({ $match: { $isDeleted: { $ne: true } } })
+    next()
+})
 export const StudentModel = model('Student', studentSchema);
