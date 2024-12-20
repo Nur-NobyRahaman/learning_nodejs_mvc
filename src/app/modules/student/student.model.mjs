@@ -182,7 +182,9 @@ studentSchema.pre("save",async function (next) {
    next()
 
 });
-studentSchema.post("save", function () {
+studentSchema.post("save", function (doc, next) {
+    doc.password = "";
+    next()
     // console.log(this, "post middleware")
 })
 
