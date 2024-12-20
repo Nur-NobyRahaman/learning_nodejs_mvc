@@ -1,5 +1,6 @@
 import mongoose, { model } from 'mongoose';
 const { Schema } = mongoose;
+import validator from 'validator';
 
 const userName = new Schema(
     {
@@ -16,6 +17,12 @@ const userName = new Schema(
             type: String,
             required: [true, "Last name is required"],  // Custom error message
             trim: true,  // Trim whitespace
+            validator: (value) => {
+                console.log(value)
+                validator.isAlpha(value)
+            },  // custom validator with
+            message: "{VALUE} is not valid"
+            
         }
     }
 );
@@ -98,6 +105,15 @@ const studentSchema = new Schema({
         },
         trim: true,  // Trim whitespace
     },
+    email: {
+        type: String,
+        required: true,
+       
+    },
+    password: {
+        type: String,
+        required: true,
+    },
     dateOfBirth: {
         type: String,
         required: [true, "Date of birth is required"],  // Custom error message for date of birth
@@ -105,9 +121,10 @@ const studentSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, "Email is required"],  // Custom error message for email
-        unique: [true, "The email {VALUE} already exists"],  // Custom error message for duplicate email
-        trim: true,  // Trim whitespace
+        
+       
+       
+         // Trim whitespace
     },
     contactNo: {
         type: String,
@@ -161,5 +178,12 @@ const studentSchema = new Schema({
         trim: true,  // Trim whitespace
     },
 });
+
+studentSchema.pre("save", function () {
+    console.log(this, "pre middleware")
+});
+studentSchema.post("save", function () {
+    console.log(this, "post middleware")
+})
 
 export const StudentModel = model('Student', studentSchema);
