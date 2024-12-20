@@ -3,7 +3,8 @@ import { studentController } from "./student.contoler.mjs";
 const router = express.Router();
 
 router.post("/create-student", studentController.createStudent);
-router.get("/get-student", studentController.getStudent);
-router.get("/get-student/:studentId",studentController.getSingleStudent)
+router.get("/", studentController.getStudent);
+router.get("/:studentId", studentController.getSingleStudent);
+router.delete("/:studentId", studentController.deleteStudent);
 
 export const studentRoute = router;

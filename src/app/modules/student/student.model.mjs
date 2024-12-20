@@ -174,6 +174,10 @@ const studentSchema = new Schema({
         required: [true, "Account status is required"],  // Custom error message for isActive field
         trim: true,  // Trim whitespace
     },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 studentSchema.pre("save",async function (next) {
@@ -188,4 +192,13 @@ studentSchema.post("save", function (doc, next) {
     // console.log(this, "post middleware")
 })
 
+// query middleware
+studentSchema.pre("find", function (next) {
+    this.find({isDeleted : {$ne: true}})
+    next()
+})
+studentSchema.pre("findOne", function (next) {
+    this.find({isDeleted : {$ne: true}})
+    next()
+})
 export const StudentModel = model('Student', studentSchema);
