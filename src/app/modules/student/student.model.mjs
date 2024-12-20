@@ -119,13 +119,6 @@ const studentSchema = new Schema({
         required: [true, "Date of birth is required"],  // Custom error message for date of birth
         trim: true,  // Trim whitespace
     },
-    email: {
-        type: String,
-        
-       
-       
-         // Trim whitespace
-    },
     contactNo: {
         type: String,
         required: [true, "Contact number is required"],  // Custom error message for contact number
