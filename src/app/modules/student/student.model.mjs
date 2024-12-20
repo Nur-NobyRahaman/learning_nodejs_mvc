@@ -1,6 +1,10 @@
 import mongoose, { model } from 'mongoose';
 const { Schema } = mongoose;
 import validator from 'validator';
+import bcrypt from 'bcrypt'
+import config from '../../config/index.mjs';
+
+
 
 const userName = new Schema(
     {
@@ -172,11 +176,14 @@ const studentSchema = new Schema({
     },
 });
 
-studentSchema.pre("save", function () {
-    console.log(this, "pre middleware")
+studentSchema.pre("save",async function (next) {
+    const user = this;
+    user.password = await bcrypt.hash(user.password, Number(config.saltRound));
+   next()
+
 });
 studentSchema.post("save", function () {
-    console.log(this, "post middleware")
+    // console.log(this, "post middleware")
 })
 
 export const StudentModel = model('Student', studentSchema);
